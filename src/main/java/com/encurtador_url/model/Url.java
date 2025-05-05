@@ -2,16 +2,18 @@ package com.encurtador_url.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
-@Document(collation = "urls")
+@Document(collection = "urls")
 public class Url {
     @Id
     private String id;
     private String fullUrl;
     private Date expiresAt;
 
-    public Url() {
+    public Url(String id, String url, LocalDateTime localDateTime) {
     }
 
     public Url(String id, String fullUrl, Date expiresAt) {

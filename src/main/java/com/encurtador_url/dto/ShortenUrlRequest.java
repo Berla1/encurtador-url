@@ -1,4 +1,4 @@
 package com.encurtador_url.dto;
 
-public record UrlDTO (String url){
+public record ShortenUrlRequest(String url){
 }
