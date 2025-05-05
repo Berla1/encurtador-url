@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Document(collection = "urls")
@@ -13,13 +14,15 @@ public class Url {
     private String fullUrl;
     private Date expiresAt;
 
-    public Url(String id, String url, LocalDateTime localDateTime) {
-    }
-
-    public Url(String id, String fullUrl, Date expiresAt) {
+    public Url(String id, String fullUrl, LocalDateTime expiresAt) {
         this.id = id;
         this.fullUrl = fullUrl;
-        this.expiresAt = expiresAt;
+        this.expiresAt = Date.from(expiresAt.atZone(ZoneId.systemDefault()).toInstant());
+    }
+    public Url() {}
+
+    public LocalDateTime getExpiresAtAsLocalDateTime() {
+        return expiresAt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     public String getId() {
