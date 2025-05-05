@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import java.util.concurrent.TimeUnit;
+
 @Configuration
 public class MongoTTLConfig {
 
@@ -16,7 +18,7 @@ public class MongoTTLConfig {
     public CommandLineRunner createTTLIndex(MongoTemplate mongoTemplate) {
         return args -> {
             MongoCollection<Document> collection = mongoTemplate.getCollection("urls");
-            IndexOptions options = new IndexOptions().expireAfter(0L, java.util.concurrent.TimeUnit.SECONDS);
+            IndexOptions options = new IndexOptions().expireAfter(0L, TimeUnit.SECONDS);
             collection.createIndex(Indexes.ascending("expiresAt"), options);
         };
     }
